@@ -41,7 +41,7 @@ jobs:
             -backend-config="resource_group_name=rg-core-dev-aue-01" \
             -backend-config="storage_account_name=${{ secrets.STORAGE_ACCOUNT_NAME }}" \
             -backend-config="container_name=${{ secrets.STORAGE_ACCOUNT_CONTAINER_NAME }}" \
-            -backend-config="key=$KEY
+            -backend-config="key=$KEY"
 
     - name: Terraform Plan
       run: terraform plan 
