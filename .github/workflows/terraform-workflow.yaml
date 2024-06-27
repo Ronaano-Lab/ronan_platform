@@ -15,9 +15,14 @@ env:
   TF_VAR_STORAGE_ACCOUNT_CONTAINER_NAME: ${{ secrets.STORAGE_ACCOUNT_CONTAINER_NAME }}
       
 jobs: 
-  build-and-deploy:
+  terraform-init-plan-apply:
+    name: 'Terraform Plan'
     runs-on: ubuntu-latest
     environment: dev
+    defaults:
+      run:
+        working-directory: ./infra/kubernetes_the_hard_way
+
     steps:
     - name: 'Az CLI login'
       uses: azure/login@v1
@@ -25,12 +30,6 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  terraform-init-plan-apply:
-    name: 'Terraform Plan'
-    runs-on: ubuntu-latest
-    environment: dev
-
-    steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v4
@@ -45,8 +44,4 @@ jobs:
       run: terraform plan 
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve -var 'client_id=${{ secrets.AZURE_CLIENT_ID }}' \
-                           -var 'client_secret=${{ secrets.AZURE_CLIENT_SECRET }}' \
-                           -var 'subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}' \
-                           -var 'tenant_id=${{ secrets.AZURE_TENANT_ID }}' \
-                           -var 'vnet_cidr=${{ secrets.VNET_CIDR }}'
+      run: terraform apply -auto-approve
