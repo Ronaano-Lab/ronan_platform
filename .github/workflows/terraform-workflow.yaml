@@ -2,8 +2,8 @@ name: Deploy Kuberenetes the Hard Way with Terraform
 on: ["workflow_dispatch"]
 
 permissions:
-      id-token: write
-      contents: read
+  id-token: write
+  contents: read
 
 env:
   ARM_CLIENT_ID: "${{ secrets.AZURE_CLIENT_ID }}"
