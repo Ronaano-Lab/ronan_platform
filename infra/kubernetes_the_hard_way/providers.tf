@@ -7,11 +7,6 @@ terraform {
   }
 
   backend "azurerm" {
-    subscription_id      = var.SUBSCRIPTION_ID
-    resource_group_name  = var.RESOURCE_GROUP_NAME
-    storage_account_name = var.STORAGE_ACCOUNT_NAME
-    container_name       = var.STORAGE_ACCOUNT_CONTAINER_NAME
-    key                  = var.STORAGE_ACCOUNT_KEY
   }
 }
 
@@ -19,5 +14,4 @@ terraform {
 provider "azurerm" {
 
   features {}
-  subscription_id = var.SUBSCRIPTION_ID
 }
