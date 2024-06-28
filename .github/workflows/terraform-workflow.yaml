@@ -1,5 +1,5 @@
 name: Terraform Init and Plan
-on: ["workflow_dispatch"]
+on: ["push"]
 
 permissions:
   id-token: write
