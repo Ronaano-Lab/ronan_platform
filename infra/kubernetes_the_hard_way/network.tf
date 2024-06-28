@@ -55,6 +55,7 @@ resource "azurerm_public_ip" "public_ip" {
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.LOCATION
   allocation_method   = "Static"
+  sku                 = "Standard"
 }
 
 # Load Balancer for exposing Kubernetes API Servers to remote clients.
