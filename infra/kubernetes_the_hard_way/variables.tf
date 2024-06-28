@@ -13,3 +13,7 @@ variable "KUBERNETES_VNET_NAME" {
 variable "KUBERNETES_VNET_CIDR" {
   type = list(string)
 }
+
+variable "KUBERNETES_SUBNET_NAME" {
+  type = string
+}
