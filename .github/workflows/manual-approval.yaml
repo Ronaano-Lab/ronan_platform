@@ -1,0 +1,19 @@
+name: Manual Approval
+
+on:
+  workflow_run:
+    workflows: ["Terraform Init and Plan"]
+    types:
+      - completed
+
+jobs:
+  approve:
+    name: 'Approve Terraform Plan'
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: Approval Step
+        uses: hmarr/auto-approve-action@v2.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
