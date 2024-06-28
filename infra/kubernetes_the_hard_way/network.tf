@@ -18,26 +18,33 @@ resource "azurerm_network_security_group" "kubernetes_network_security_group" {
   location            = var.LOCATION
   resource_group_name = var.RESOURCE_GROUP_NAME
 
-  security_rule = [{
-    name                       = "kubernetes-allow-ssh"
-    priority                   = 1000
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-    }, {
-    name                       = "kubernetes-allow-api-server"
-    priority                   = 1001
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "6443"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }]
+}
 
+resource "azurerm_network_security_rule" "kubernetes-allow-ssh" {
+  name                        = "kubernetes-allow-ssh"
+  priority                    = 1000
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.resource_group.name
+  network_security_group_name = azurerm_network_security_group.kubernetes_network_security_group.name
+}
+
+
+resource "azurerm_network_security_rule" "kubernetes-allow-api-server" {
+  name                        = "kubernetes-allow-api-server"
+  priority                    = 1001
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "6443"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.resource_group.name
+  network_security_group_name = azurerm_network_security_group.kubernetes_network_security_group.name
 }
