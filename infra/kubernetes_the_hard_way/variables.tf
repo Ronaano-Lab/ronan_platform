@@ -6,12 +6,6 @@ variable "KUBERNETES_VNET_NAME" {
   type = string
 }
 
-
-variable "KUBERNETES_VNET_CIDR" {
-  type = string
-}
-
-
 variable "SUBSCRIPTION_ID" {
   type = string
 }
@@ -21,9 +15,5 @@ variable "LOCATION" {
 }
 
 variable "STORAGE_ACCOUNT_KEY" {
-  type = string
-}
-
-variable "VNET_CIDR" {
   type = string
 }
