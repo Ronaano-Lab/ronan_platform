@@ -54,7 +54,7 @@ resource "azurerm_public_ip" "public_ip" {
   name                = var.PUBLIC_IP_ADDRESS_NAME
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.LOCATION
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 # Load Balancer for exposing Kubernetes API Servers to remote clients.
@@ -62,10 +62,8 @@ resource "azurerm_lb" "load_balancer" {
   name                = var.LOAD_BALANCER_NAME
   location            = var.LOCATION
   resource_group_name = azurerm_resource_group.resource_group.name
-  sku                 = "Standard"
   frontend_ip_configuration {
     name                 = azurerm_public_ip.public_ip.name
     public_ip_address_id = azurerm_public_ip.public_ip.id
-    zones                = ["1"]
   }
 }
