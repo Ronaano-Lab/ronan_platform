@@ -11,5 +11,5 @@ variable "KUBERNETES_VNET_NAME" {
 }
 
 variable "KUBERNETES_VNET_CIDR" {
-  type = string
+  type = list(string)
 }

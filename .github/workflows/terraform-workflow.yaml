@@ -12,6 +12,8 @@ env:
   ARM_USE_OIDC: true
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"
   STORAGE_ACCOUNT_KEY: "terraform.tfstate.kubernetes_the_hard_ways"
+  TF_LOG: INFO
+  TF_INPUT: false
 jobs: 
   terraform-init-plan-apply:
     name: 'Terraform Init,Plan,Apply'
