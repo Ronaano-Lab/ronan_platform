@@ -20,6 +20,7 @@ resource "azurerm_network_security_group" "kubernetes_network_security_group" {
 
 }
 
+# This is okay for me testing as SSH port 22 is exposed to the internet. Don't do this in production OFC!
 resource "azurerm_network_security_rule" "kubernetes-allow-ssh" {
   name                        = "kubernetes-allow-ssh"
   priority                    = 1000
@@ -47,4 +48,24 @@ resource "azurerm_network_security_rule" "kubernetes-allow-api-server" {
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.resource_group.name
   network_security_group_name = azurerm_network_security_group.kubernetes_network_security_group.name
+}
+
+resource "azurerm_public_ip" "public_ip" {
+  name                = var.PUBLIC_IP_ADDRESS_NAME
+  resource_group_name = azurerm_resource_group.resource_group.name
+  location            = var.LOCATION
+  allocation_method   = "Dynamic"
+}
+
+# Load Balancer for exposing Kubernetes API Servers to remote clients.
+resource "azurerm_lb" "load_balancer" {
+  name                = var.LOAD_BALANCER_NAME
+  location            = var.LOCATION
+  resource_group_name = azurerm_resource_group.resource_group.name
+
+  frontend_ip_configuration {
+    name                 = azurerm_public_ip.public_ip.name
+    public_ip_address_id = azurerm_public_ip.public_ip.id
+    zones                = ["1"]
+  }
 }

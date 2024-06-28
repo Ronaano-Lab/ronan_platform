@@ -22,3 +22,10 @@ variable "KUBERNETES_NSG_NAME" {
   type = string
 }
 
+variable "LOAD_BALANCER_NAME" {
+  type = string
+}
+
+variable "PUBLIC_IP_ADDRESS_NAME" {
+  type = string
+}
