@@ -67,3 +67,7 @@ resource "azurerm_lb" "load_balancer" {
     public_ip_address_id = azurerm_public_ip.public_ip.id
   }
 }
+resource "azurerm_lb_backend_address_pool" "backend_address_pool" {
+  name            = "kubernetes-lb-pool"
+  loadbalancer_id = azurerm_lb.load_balancer.id
+}
