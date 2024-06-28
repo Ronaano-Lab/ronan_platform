@@ -1,4 +1,4 @@
-name: Deploy Kuberenetes the Hard Way with Terraform
+name: Deploy Kubernetes the Hard Way with Terraform
 on: ["workflow_dispatch"]
 
 permissions:
