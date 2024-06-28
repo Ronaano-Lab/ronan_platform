@@ -1,4 +1,4 @@
-name: Terraform Init and Plan
+name: Terraform Init, Plan and Apply
 on: ["push", "workflow_dispatch"]
 
 permissions:
@@ -43,8 +43,5 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -out=tfplan
 
-    - name: Upload Plan
-      uses: actions/upload-artifact@v2
-      with:
-        name: tfplan
-        path: tfplan
+    - name: Terraform Apply
+      run: terraform apply tfplan
