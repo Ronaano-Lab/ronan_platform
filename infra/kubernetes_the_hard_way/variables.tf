@@ -5,3 +5,11 @@ variable "RESOURCE_GROUP_NAME" {
 variable "LOCATION" {
   type = string
 }
+
+variable "KUBERNETES_VNET_NAME" {
+  type = string
+}
+
+variable "KUBERNETES_VNET_CIDR" {
+  type = string
+}
