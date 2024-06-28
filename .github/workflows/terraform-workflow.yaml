@@ -15,7 +15,7 @@ env:
   STORAGE_ACCOUNT_KEY: "terraform.tfstate.kubernetes_the_hard_ways"
 jobs: 
   terraform-init-plan-apply:
-    name: 'Terraform Plan'
+    name: 'Terraform Init,Plan,Apply'
     runs-on: ubuntu-latest
     environment: dev
     defaults:
