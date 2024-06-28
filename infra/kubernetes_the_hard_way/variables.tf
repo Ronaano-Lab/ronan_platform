@@ -17,3 +17,8 @@ variable "KUBERNETES_VNET_CIDR" {
 variable "KUBERNETES_SUBNET_NAME" {
   type = string
 }
+
+variable "KUBERNETES_NSG_NAME" {
+  type = string
+}
+
