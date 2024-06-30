@@ -50,25 +50,25 @@ resource "azurerm_network_security_rule" "kubernetes-allow-api-server" {
   network_security_group_name = azurerm_network_security_group.kubernetes_network_security_group.name
 }
 
-# resource "azurerm_public_ip" "public_ip" {
-#   name                = var.PUBLIC_IP_ADDRESS_NAME
-#   resource_group_name = azurerm_resource_group.resource_group.name
-#   location            = var.LOCATION
-#   allocation_method   = "Static"
-#   sku                 = "Standard"
-# }
+resource "azurerm_public_ip" "public_ip" {
+  name                = var.PUBLIC_IP_ADDRESS_NAME
+  resource_group_name = azurerm_resource_group.resource_group.name
+  location            = var.LOCATION
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
 
-# # Load Balancer for exposing Kubernetes API Servers to remote clients.
-# resource "azurerm_lb" "load_balancer" {
-#   name                = var.LOAD_BALANCER_NAME
-#   location            = var.LOCATION
-#   resource_group_name = azurerm_resource_group.resource_group.name
-#   frontend_ip_configuration {
-#     name                 = azurerm_public_ip.public_ip.name
-#     public_ip_address_id = azurerm_public_ip.public_ip.id
-#   }
-# }
-# resource "azurerm_lb_backend_address_pool" "backend_address_pool" {
-#   name            = "kubernetes-lb-pool"
-#   loadbalancer_id = azurerm_lb.load_balancer.id
-# }
+# Load Balancer for exposing Kubernetes API Servers to remote clients.
+resource "azurerm_lb" "load_balancer" {
+  name                = var.LOAD_BALANCER_NAME
+  location            = var.LOCATION
+  resource_group_name = azurerm_resource_group.resource_group.name
+  frontend_ip_configuration {
+    name                 = azurerm_public_ip.public_ip.name
+    public_ip_address_id = azurerm_public_ip.public_ip.id
+  }
+}
+resource "azurerm_lb_backend_address_pool" "backend_address_pool" {
+  name            = "kubernetes-lb-pool"
+  loadbalancer_id = azurerm_lb.load_balancer.id
+}
