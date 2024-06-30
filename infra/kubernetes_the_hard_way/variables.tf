@@ -29,3 +29,7 @@ variable "LOAD_BALANCER_NAME" {
 variable "PUBLIC_IP_ADDRESS_NAME" {
   type = string
 }
+
+variable "KUBERNETES_SSH_KEY" {
+  type = string
+}

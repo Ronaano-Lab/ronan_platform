@@ -12,6 +12,7 @@ env:
   ARM_USE_OIDC: true
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"
   TF_VAR_KUBERNETES_VNET_CIDR: "${{ secrets.TF_VAR_KUBERNETES_VNET_CIDR }}"
+  TF_VAR_KUBERNETES_SSH_KEY: "${{ secrets.TF_VAR_KUBERNETES_SSH_KEY }}"
   STORAGE_ACCOUNT_KEY: "terraform.tfstate.kubernetes_the_hard_ways"
   TF_LOG: INFO
   TF_INPUT: false
