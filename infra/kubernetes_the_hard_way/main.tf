@@ -34,30 +34,30 @@ resource "azurerm_network_interface" "kubernetes_control_plane_nic" {
   resource_group_name  = azurerm_resource_group.resource_group.name
 }
 
-# resource "azurerm_linux_virtual_machine" "kubernetes_control_plane_vm" {
-#   count = 3
-#   name  = "vm-kubernetescontroller-dev-aue-${count.index}"
-#   size  = "Standard_B1ls"
-#   os_disk {
-#     caching              = "ReadWrite"
-#     storage_account_type = "Standard_LRS"
-#   }
+resource "azurerm_linux_virtual_machine" "kubernetes_control_plane_vm" {
+  count = 3
+  name  = "vm-kubernetescontroller-dev-aue-${count.index}"
+  size  = "Standard_B1ls"
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
 
-#   availability_set_id = azurerm_availability_set.availability_set.id
+  availability_set_id = azurerm_availability_set.availability_set.id
 
-#   admin_ssh_key {
-#     username   = "kube-root"
-#     public_key = azurerm_ssh_public_key.SshPublicKey.public_key
-#   }
+  admin_ssh_key {
+    username   = "kube-root"
+    public_key = azurerm_ssh_public_key.SshPublicKey.public_key
+  }
 
-#   source_image_reference {
-#     publisher = "Canonical"
-#     offer     = "0001-com-ubuntu-server-focal"
-#     sku       = "20_04-lts"
-#     version   = "latest"
-#   }
-#   location              = var.LOCATION
-#   resource_group_name   = azurerm_resource_group.resource_group.name
-#   network_interface_ids = [azurerm_network_interface.kubernetes_control_plane_nic["${count.index}"].id]
-#   admin_username        = "kube-root"
-# }
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-focal"
+    sku       = "20_04-lts"
+    version   = "latest"
+  }
+  location              = var.LOCATION
+  resource_group_name   = azurerm_resource_group.resource_group.name
+  network_interface_ids = [azurerm_network_interface.kubernetes_control_plane_nic["${count.index}"].id]
+  admin_username        = "kube-root"
+}
