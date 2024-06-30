@@ -4,9 +4,10 @@ resource "azurerm_resource_group" "resource_group" {
 }
 
 resource "azurerm_availability_set" "availability_set" {
-  name                = "controller-as"
-  location            = var.LOCATION
-  resource_group_name = azurerm_resource_group.resource_group.name
+  name                        = "controller-as"
+  location                    = var.LOCATION
+  resource_group_name         = azurerm_resource_group.resource_group.name
+  platform_fault_domain_count = 2
 }
 
 resource "azurerm_public_ip" "kubernetes_control_plane_pip" {
