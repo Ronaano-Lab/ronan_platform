@@ -1,5 +1,5 @@
-name: Deploy Kubernetes the Hard Way with Terraform
-on: ["workflow_dispatch"]
+name: Terraform Init, Plan and Apply
+on: ["push", "workflow_dispatch"]
 
 permissions:
   id-token: write
@@ -11,7 +11,11 @@ env:
   ARM_TENANT_ID: "${{ secrets.AZURE_TENANT_ID }}"
   ARM_USE_OIDC: true
   ARM_ACCESS_KEY: "${{ secrets.ARM_ACCESS_KEY }}"
+  TF_VAR_KUBERNETES_VNET_CIDR: "${{ secrets.TF_VAR_KUBERNETES_VNET_CIDR }}"
+  TF_VAR_KUBERNETES_SSH_KEY: "${{ secrets.TF_VAR_KUBERNETES_SSH_KEY }}"
   STORAGE_ACCOUNT_KEY: "terraform.tfstate.kubernetes_the_hard_ways"
+  TF_LOG: INFO
+  TF_INPUT: false
 jobs: 
   terraform-init-plan-apply:
     name: 'Terraform Init,Plan,Apply'
@@ -39,8 +43,9 @@ jobs:
       run: terraform init -backend-config="subscription_id=${{ secrets.AZURE_SUBSCRIPTION_ID }}" -backend-config="resource_group_name=${{ secrets.TERRAFORM_STORAGE_ACCOUNT_RESOURCE_GROUP_NAME }}" -backend-config="storage_account_name=${{ secrets.STORAGE_ACCOUNT_NAME }}" -backend-config="container_name=${{ secrets.STORAGE_ACCOUNT_CONTAINER_NAME }}" -backend-config="key=${{ env.STORAGE_ACCOUNT_KEY }}"
       env:
         ARM_USE_AZUREAD: true
+
     - name: Terraform Plan
-      run: terraform plan 
+      run: terraform plan -out=tfplan
 
     - name: Terraform Apply
-      run: terraform apply -auto-approve
+      run: terraform apply tfplan
