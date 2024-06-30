@@ -46,7 +46,7 @@ resource "azurerm_linux_virtual_machine" "kubernetes_control_plane_vm" {
   availability_set_id = azurerm_availability_set.availability_set.id
 
   admin_ssh_key {
-    username   = "kube-root"
+    username   = "kuberoot"
     public_key = data.azurerm_ssh_public_key.SshPublicKey.public_key
   }
 
@@ -100,7 +100,7 @@ resource "azurerm_linux_virtual_machine" "kubernetes_worker_vm" {
   availability_set_id = azurerm_availability_set.availability_set.id
 
   admin_ssh_key {
-    username   = "kube-root"
+    username   = "kuberoot"
     public_key = data.azurerm_ssh_public_key.SshPublicKey.public_key
   }
 
