@@ -64,7 +64,7 @@ resource "azurerm_linux_virtual_machine" "kubernetes_control_plane_vm" {
 
 
 resource "azurerm_public_ip" "kubernetes_worker_pip" {
-  count               = 3
+  count               = 2
   name                = "pip-kubernetesworker-dev-aue-${count.index}"
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.LOCATION
@@ -73,7 +73,7 @@ resource "azurerm_public_ip" "kubernetes_worker_pip" {
 }
 
 resource "azurerm_network_interface" "kubernetes_worker_nic" {
-  count = 3
+  count = 2
   name  = "worker-${count.index}-nic"
 
   ip_configuration {
@@ -89,7 +89,7 @@ resource "azurerm_network_interface" "kubernetes_worker_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "kubernetes_worker_vm" {
-  count = 3
+  count = 2
   name  = "vm-kubernetesworker-dev-aue-${count.index}"
   size  = "Standard_B1ls"
   os_disk {
