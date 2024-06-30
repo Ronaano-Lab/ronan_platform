@@ -47,7 +47,7 @@ resource "azurerm_linux_virtual_machine" "kubernetes_control_plane_vm" {
 
   admin_ssh_key {
     username   = "kube-root"
-    public_key = azurerm_ssh_public_key.SshPublicKey.public_key
+    public_key = data.azurerm_ssh_public_key.SshPublicKey.public_key
   }
 
   source_image_reference {
